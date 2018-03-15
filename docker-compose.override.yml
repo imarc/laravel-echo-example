@@ -1,0 +1,6 @@
+version: '2'
+
+services:
+  proxy:
+    volumes:
+      - ./traefik/traefik.dev.toml:/etc/traefik/traefik.toml
