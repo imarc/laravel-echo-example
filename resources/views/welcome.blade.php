@@ -1,11 +1,14 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
+        <title>Echo Example</title>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -18,78 +21,46 @@
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
+                width: 100vw;
                 margin: 0;
             }
 
-            .full-height {
-                height: 100vh;
+            body {
+                padding: 100px 0;
             }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
+            .container {
+                width: 500px;
+                margin: 0 auto;
             }
 
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
+            .container > * {
                 text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
             }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+        <div class="container">
+            <h1>Laravel Echo</h1>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+            <div id="app">
+                <button @click="broadcast">Trigger An Echo Event</button>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                <p v-for="message in messages" v-text="message"></p>
             </div>
         </div>
+
+
+
+        <script>
+            window.echoConfig = {
+                host: {!! json_encode(env('ECHO_HOST')) !!},
+                port: {!! json_encode(env('ECHO_PORT')) !!}
+            };
+        </script>
+
+        <!-- Scripts -->
+        <script src="//{{ env('ECHO_HOST') }}/socket.io/socket.io.js"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
