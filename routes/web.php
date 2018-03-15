@@ -11,6 +11,12 @@
 |
 */
 
+use App\Events\TestEvent;
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/broadcast-test', function() {
+   event(new TestEvent('The server time is now ' . date('H:i:s')));
 });
