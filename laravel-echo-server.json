@@ -1,0 +1,17 @@
+{
+	"authHost": "http://www/",
+	"authEndpoint": "broadcasting/auth",
+	"database": "redis",
+	"databaseConfig": {
+		"redis": {
+			"host": "redis",
+			"port": "6379",
+			"db": "0"
+		}
+	},
+	"devMode": true,
+	"host": null,
+	"port": "80",
+	"protocol": "http",
+	"socketio": {}
+}
